@@ -1,9 +1,27 @@
+# terraform
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
+
+
+# Provider: AWS
 provider "aws" {
-  profile = "terrform"
+  profile = "terraform"
   region  = "ap-northeast-1"
 }
 
-resource "aws_instance" "example" {
-  ami           = "ami-0037237888be2fe22"
-  instance_type = "t2.micro"
+# variables
+variable "project" {
+  type = string
+}
+
+variable "environment" {
+  type = string
 }
