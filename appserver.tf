@@ -13,6 +13,39 @@ resource "aws_key_pair" "keypair" {
 }
 
 # -----------------------
+# ssm parameter store
+# -----------------------
+resource "aws_ssm_parameter" "db_password" {
+  name  = "${var.project}-${var.environment}-db-password"
+  type  = "SecureString"
+  value = aws_db_instance.mysql_standalone.password
+}
+
+resource "aws_ssm_parameter" "db_host" {
+  name  = "${var.project}-${var.environment}-db-host"
+  type  = "String"
+  value = aws_db_instance.mysql_standalone.address
+}
+
+resource "aws_ssm_parameter" "db_port" {
+  name  = "${var.project}-${var.environment}-db-port"
+  type  = "String"
+  value = aws_db_instance.mysql_standalone.port
+}
+
+resource "aws_ssm_parameter" "db_name" {
+  name  = "${var.project}-${var.environment}-db-name"
+  type  = "String"
+  value = aws_db_instance.mysql_standalone.name
+}
+
+resource "aws_ssm_parameter" "db_username" {
+  name  = "${var.project}-${var.environment}-db-username"
+  type  = "SecureString"
+  value = aws_db_instance.mysql_standalone.username
+}
+
+# -----------------------
 # EC2 instance
 # -----------------------
 resource "aws_instance" "app_server" {
