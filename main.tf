@@ -21,6 +21,12 @@ provider "aws" {
   region  = "ap-northeast-1"
 }
 
+provider "aws" {
+  alias   = "virginia"
+  profile = "terraform"
+  region  = "us-east-1"
+}
+
 # variables
 variable "project" {
   type = string
