@@ -25,7 +25,7 @@ resource "aws_s3_bucket_public_access_block" "s3_static_bucket_block" {
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
-  restrict_public_buckets = false
+  restrict_public_buckets = true
 
   depends_on = [aws_s3_bucket_policy.s3_static_bucket_policy]
 }
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "s3_static_bucket_document" {
     resources = ["${aws_s3_bucket.s3_static_bucket.arn}/*"]
     principals {
       type        = "AWS"
-      identifiers = ["${aws_iam_role.app_iam_role.arn}"]
+      identifiers = [aws_cloudfront_origin_access_identity.cf_s3_oai.iam_arn]
     }
   }
 }
